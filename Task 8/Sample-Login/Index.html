@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        #login-container {
+            background-color: grey;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            box-sizing: border-box;
+            color:black;
+        }
+
+        #login-btn {
+            background-color: black;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        #error-msg {
+            color: red;
+            margin-top: 10px;
+           
+        }
+        h2{
+        color:white;
+        }
+    </style>
+</head>
+<body>
+
+<div id="login-container">
+    <h2>Login</h2>
+    <input type="text" id="username" placeholder="Username">
+    <input type="password" id="password" placeholder="Password">
+    <input type="email" id="email" placeholder="Email">
+    <button id="login-btn" onclick="attemptLogin()">Login</button>
+    <p id="error-msg"></p>
+</div>
+
+<script>
+    function attemptLogin() {
+        var username = document.getElementById("username").value;
+        var password = document.getElementById("password").value;
+        var email = document.getElementById("email").value;
+
+       
+        if (!username || !password || !email) {
+            document.getElementById("errorMessage").innerHTML = "All fields are required";
+            return;
+        }
+
+       
+        document.getElementById("errorMessage").innerHTML = "";
+
+       
+        var func = new XMLHttpRequest();
+        func.onreadystatechange = function () {
+            if (func.readyState === 4) {
+                if (func.status === 200) {
+                    var response = JSON.parse(func.responseText);
+                    if (response.success) {
+                        alert("Login successful!");
+                    } else {
+                        document.getElementById("errorMessage").innerHTML = response.message;
+                    }
+                } else {
+                    document.getElementById("errorMessage").innerHTML = "Error during login request";
+                }
+            }
+        };
+
+       
+
+       
+
+       
+   
+</script>
+
+</body>
+</html>
